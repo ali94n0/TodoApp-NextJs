@@ -21,7 +21,7 @@ const userSchema = new Schema({
   },
   todos: {
     type: Array,
-    default: [],
+    default: [{ title: String, status: String }],
   },
 });
 
