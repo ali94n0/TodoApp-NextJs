@@ -28,7 +28,7 @@ function SignInPage(props) {
   }, [status]);
   return (
     <div className="signin-form">
-      <h3>LogIn Form</h3>
+      <h3>Login Form</h3>
       <input
         type="text"
         placeholder="Email"

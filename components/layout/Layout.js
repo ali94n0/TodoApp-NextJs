@@ -2,12 +2,25 @@ import Link from "next/link";
 import { VscListSelection } from "react-icons/vsc";
 import { BiMessageSquareAdd } from "react-icons/bi";
 import { RxDashboard } from "react-icons/rx";
+import { FiLogOut } from "react-icons/fi";
+import { signOut, useSession } from "next-auth/react";
 
 function Layout({ children }) {
+  const { status } = useSession();
+  const signOutHandler = async () => {
+    signOut();
+  };
+
   return (
     <div className="container">
       <header>
         <p>Next Todo App</p>
+        {status === "authenticated" ? (
+          <button onClick={signOutHandler}>
+            Log Out
+            <FiLogOut />
+          </button>
+        ) : null}
       </header>
       <div className="container--main">
         <aside>
@@ -23,7 +36,7 @@ function Layout({ children }) {
             </li>
             <li>
               <RxDashboard />
-              <Link href={"/"}>Profile</Link>
+              <Link href={"/profile"}>Profile</Link>
             </li>
           </ul>
         </aside>
