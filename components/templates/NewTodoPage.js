@@ -5,6 +5,8 @@ import { AiOutlineFileSearch } from "react-icons/ai";
 import { MdDoneAll } from "react-icons/md";
 import { useState } from "react";
 import RadioButton from "../elements/RadioButton";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function NewTodoPage(props) {
   const [title, setTitle] = useState("");
@@ -20,6 +22,9 @@ function NewTodoPage(props) {
     if (data.status === "success") {
       setTitle("");
       setStatus("todo");
+      toast.success("task added successfully", {
+        position: "top-right",
+      });
     }
   };
 
@@ -75,6 +80,7 @@ function NewTodoPage(props) {
         </div>
         <button onClick={addHandler}>Add</button>
       </div>
+      <ToastContainer />
     </div>
   );
 }
