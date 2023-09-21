@@ -5,8 +5,8 @@ import { AiOutlineFileSearch } from "react-icons/ai";
 import { MdDoneAll } from "react-icons/md";
 import { useEffect, useState } from "react";
 import RadioButton from "../elements/RadioButton";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+// import { ToastContainer, toast } from "react-toastify";
+// import "react-toastify/dist/ReactToastify.css";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 
@@ -30,12 +30,13 @@ function NewTodoPage(props) {
       headers: { "Content-Type": "application/json" },
     });
     const data = await res.json();
+
     if (data.status === "success") {
       setTitle("");
       setTodoStatus("todo");
-      toast.success("task added successfully", {
-        position: "top-right",
-      });
+      // toast.success("task added successfully", {
+      //   position: "top-right",
+      // });
     }
   };
 
@@ -91,7 +92,7 @@ function NewTodoPage(props) {
         </div>
         <button onClick={addHandler}>Add</button>
       </div>
-      <ToastContainer />
+      {/* <ToastContainer /> */}
     </div>
   );
 }

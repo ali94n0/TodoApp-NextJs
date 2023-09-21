@@ -2,7 +2,6 @@ import User from "@/models/users";
 import { verifyPassword } from "@/utilities/auth";
 import ConnectDB from "@/utilities/connectDB";
 import { getSession } from "next-auth/react";
-import { BiSolidUniversalAccess } from "react-icons/bi";
 
 export default async function handler(req, res) {
   try {
@@ -10,7 +9,7 @@ export default async function handler(req, res) {
   } catch (error) {
     return res.status(500).json({
       status: "failed",
-      message: "internal error in connecting to DB",
+      message: "Internal error in connecting to DB",
     });
   }
 
@@ -19,7 +18,7 @@ export default async function handler(req, res) {
   if (!session) {
     return res.status(422).json({
       status: "failed",
-      message: "You are not logged in!",
+      message: "you are not logged in",
     });
   }
 
@@ -28,47 +27,31 @@ export default async function handler(req, res) {
   if (!user) {
     return res.status(422).json({
       status: "failed",
-      message: "User doesn't exsit!",
+      message: "user doesn't exist",
     });
   }
 
-  if (req.method === "POST") {
-    const { name, lastName, password } = req.body;
-    if (!name || !lastName) {
-      return res.status(422).json({
-        status: "failed",
-        message: "Invalid Data!",
-      });
-    }
+  if (req.method === "PATCH") {
+    const { name, lastName, email, password } = req.body;
+    console.log(req.body);
 
     const isValid = await verifyPassword(password, user.password);
-
     if (!isValid) {
       return res.status(422).json({
         status: "failed",
-        message: "Name or Password wrong!",
+        message: "email or password wrong",
       });
     }
 
+    user.email = email;
     user.name = name;
     user.lastName = lastName;
     user.save();
 
     res.status(201).json({
-      status: BiSolidUniversalAccess,
-      message: "user updated successfully",
-      data: { name, lastName, email: user.email },
-    });
-  } else if (req.method === "GET") {
-    const data = {
-      name: user.name,
-      lastName: user.lastName,
-      email: user.email,
-    };
-
-    res.status(200).json({
       status: "success",
-      data,
+      message: "updated user successfully",
+      data: { email, name, lastName },
     });
   }
 }

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 
 function ProfileData({ profile }) {
@@ -15,7 +16,9 @@ function ProfileData({ profile }) {
         <span>Email:</span>
         <p>{profile.email}</p>
       </div>
-      <button>Edit</button>
+      <button>
+        <Link href={`/edit/${profile.id}`}>Edit</Link>
+      </button>
     </div>
   );
 }

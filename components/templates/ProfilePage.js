@@ -19,7 +19,7 @@ function ProfilePage(props) {
       router.replace("/signin");
     }
     fetchProfile();
-  }, [[], status]);
+  }, [status]);
 
   const fetchProfile = async () => {
     const res = await fetch("/api/profile");
