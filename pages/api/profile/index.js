@@ -2,7 +2,6 @@ import User from "@/models/users";
 import { verifyPassword } from "@/utilities/auth";
 import ConnectDB from "@/utilities/connectDB";
 import { getSession } from "next-auth/react";
-import { BiSolidUniversalAccess } from "react-icons/bi";
 
 export default async function handler(req, res) {
   try {
@@ -55,7 +54,7 @@ export default async function handler(req, res) {
     user.save();
 
     res.status(201).json({
-      status: BiSolidUniversalAccess,
+      status: "success",
       message: "user updated successfully",
       data: { name, lastName, email: user.email },
     });

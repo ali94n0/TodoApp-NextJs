@@ -30,22 +30,22 @@ export default async function handler(req, res) {
   }
 
   if (req.method === "POST") {
-    const { title, status } = req.body;
+    const { title, details, todoStatus } = req.body;
 
-    if (!title || !status) {
-      return res.status(422).json({
-        status: "failed",
-        message: "Invalid Data!",
-      });
+    console.log(req.body);
+    if (!title || !todoStatus) {
+      return res
+        .status(422)
+        .json({ status: "failed", message: "Invalid data!!!" });
     }
 
-    user.todos.push({ title, status });
+    user.todos.push({ title, details, status: todoStatus });
     user.save();
 
     res.status(201).json({
       status: "success",
       message: "todo added successfully",
-      data: { todo: { title, status } },
+      data: { todo: { title, details, status: todoStatus } },
     });
   } else if (req.method === "GET") {
     const sortedTodos = sortTodos(user.todos);
@@ -67,7 +67,6 @@ export default async function handler(req, res) {
       { "todos._id": id },
       { $set: { "todos.$.status": status } }
     );
-    console.log(result);
     res.status(200).json({
       status: "success",
       message: "todo updated successfully",

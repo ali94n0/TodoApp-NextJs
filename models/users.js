@@ -19,7 +19,7 @@ const userSchema = new Schema({
     default: new Date(),
     immutable: true,
   },
-  todos: [{ title: String, status: String }],
+  todos: [{ title: String, details: String, status: String }],
 });
 
 const User = models.User || model("User", userSchema);

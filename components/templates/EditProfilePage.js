@@ -2,8 +2,6 @@ import { signIn } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { CgProfile } from "react-icons/cg";
-// import { toast } from "react-toastify";
-// import "react-toastify/dist/ReactToastify.css";
 
 function EditProfilePage({ user }) {
   const [updatedData, setUpdatedData] = useState({
@@ -31,9 +29,6 @@ function EditProfilePage({ user }) {
         redirect: false,
       });
       router.push("/profile");
-      // toast.success("user updated successfully", {
-      //   position: "top-right",
-      // });
     }
   };
   return (

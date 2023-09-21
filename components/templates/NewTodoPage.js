@@ -5,13 +5,14 @@ import { AiOutlineFileSearch } from "react-icons/ai";
 import { MdDoneAll } from "react-icons/md";
 import { useEffect, useState } from "react";
 import RadioButton from "../elements/RadioButton";
-// import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 // import "react-toastify/dist/ReactToastify.css";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 
 function NewTodoPage(props) {
   const [title, setTitle] = useState("");
+  const [details, setDetails] = useState("");
   const [todoStatus, setTodoStatus] = useState("todo");
   const router = useRouter();
 
@@ -26,17 +27,18 @@ function NewTodoPage(props) {
   const addHandler = async () => {
     const res = await fetch("/api/todos", {
       method: "POST",
-      body: JSON.stringify({ title, todoStatus }),
+      body: JSON.stringify({ title, details, todoStatus }),
       headers: { "Content-Type": "application/json" },
     });
     const data = await res.json();
 
     if (data.status === "success") {
       setTitle("");
+      setDetails("");
       setTodoStatus("todo");
-      // toast.success("task added successfully", {
-      //   position: "top-right",
-      // });
+      toast.success("task added successfully", {
+        position: "top-right",
+      });
     }
   };
 
@@ -54,6 +56,16 @@ function NewTodoPage(props) {
             id="title"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
+          />
+        </div>
+        <div className="add-form__input--first">
+          <label htmlFor="details">Details</label>
+          <textarea
+            type="text"
+            rows={4}
+            id="details"
+            value={details}
+            onChange={(e) => setDetails(e.target.value)}
           />
         </div>
         <div className="add-form__input--second">
