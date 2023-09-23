@@ -9,8 +9,8 @@ export default function App({ Component, pageProps }) {
   return (
     <SessionProvider>
       <Layout>
-        <ToastContainer />
         <Component {...pageProps} />
+        <ToastContainer />
       </Layout>
     </SessionProvider>
   );

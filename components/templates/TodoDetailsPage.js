@@ -5,6 +5,7 @@ import { BsAlignStart } from "react-icons/bs";
 import { FiSettings } from "react-icons/fi";
 import { AiOutlineFileSearch } from "react-icons/ai";
 import { MdDoneAll } from "react-icons/md";
+import { toast } from "react-toastify";
 
 function TodoDetailsPage({ todo }) {
   const [title, setTitle] = useState(todo.title);
@@ -12,11 +13,22 @@ function TodoDetailsPage({ todo }) {
   const [todoStatus, setTodoStatus] = useState(todo.status);
 
   const editHandler = async () => {
-    console.log({ title, details, todoStatus });
+    const res = await fetch(`/api/todos/${todo._id}`, {
+      method: "PATCH",
+      body: JSON.stringify({ title, details, todoStatus }),
+      headers: { "Content-Type": "application/json" },
+    });
+    const data = await res.json();
+    if (data.status === "success") {
+      toast.success("todo updated successfully", {
+        position: "top-right",
+      });
+    }
   };
 
   return (
     <div className="add-form">
+      {/* <ToastContainer /> */}
       <h2>
         <PiNotepad />
         Todo Details
@@ -76,7 +88,7 @@ function TodoDetailsPage({ todo }) {
           <MdDoneAll />
         </RadioButton>
       </div>
-      <button onClick={editHandler}>Add</button>
+      <button onClick={editHandler}>Update</button>
     </div>
   );
 }
